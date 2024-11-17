@@ -21,6 +21,7 @@ public class checkPlay : MonoBehaviour
     private bool isSequenceComplete = false; 
 
     private AudioSource wrong;
+    public GameObject FinishLabel;
     
 
     // Start is called before the first frame update
@@ -69,6 +70,7 @@ public class checkPlay : MonoBehaviour
         
          Renderer renderer=prefab.GetComponent<Renderer>();
             renderer.material.color=Color.green;
+            FinishLabel.SetActive(true);
     }
 
     void OnIncorrectClick()

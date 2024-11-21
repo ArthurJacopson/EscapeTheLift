@@ -1,0 +1,23 @@
+# Unity-specific folders
+/Library/
+/Temp/
+/Logs/
+/Build/
+/Builds/
+/UserSettings/
+
+# Visual Studio/MonoDevelop files
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# OS-generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6585234493779768041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7690977662375333161}
+  - component: {fileID: 3883233283499674487}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7690977662375333161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585234493779768041}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3883233283499674487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585234493779768041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8537711ec9b66446d9e18b4b5bf102a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenText: {fileID: 0}
+  player: {fileID: 0}
+  riddles:
+  - text: I am round, red, and have a sweet core. In pies and jams, I'm loved even
+      more. What am I?
+    correctGridIndex: 1
+  - text: I give light but not heat, When I am on, you will clearly see. Flip the
+      switch to summon me. What am I?
+    correctGridIndex: 9
+  - text: "I have hands but no arms, Numbers but no legs. I measure the moments,
+      And set the day\u2019s stage. What am I?"
+    correctGridIndex: 8
+  - text: I am a tool, smooth and sharp, From paper to wood, I leave my mark. Be
+      careful though, I am not a toy. Who am I?
+    correctGridIndex: 4
+  - text: "I have keys but no locks, I have space but no room. You can enter, but
+      you can\u2019t leave. What am I?"
+    correctGridIndex: 6
+  - text: "I\u2019m rooted to the ground, Yet my arms reach to the sky. I provide
+      shade and fruit to those nearby. What am I?"
+    correctGridIndex: 2
+  - text: "I can be cracked, made, told, or played. In the cold, I\u2019m best displayed.
+      What am I?"
+    correctGridIndex: 7
+  - text: "The more you take, the more you leave behind. On every path, I\u2019m
+      easy to find. What am I?"
+    correctGridIndex: 3

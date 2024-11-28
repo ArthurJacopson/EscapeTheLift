@@ -9,11 +9,12 @@ public class Grid : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Check if the player steps on the grid cell
+        Debug.Log("Triggered by: " + other.name); // Log which object is triggering
+        // Check if the player (via the XR Rig) steps on the grid cell
         if (other.CompareTag("Player"))
         {
-            gameManager.CheckPlayerAnswer(gridIndex);
+            Debug.Log("Player stepped on grid " + gridIndex); // Debug to confirm the trigger works
+            gameManager.CheckPlayerAnswer(gridIndex); // Check the answer
         }
     }
 }
-

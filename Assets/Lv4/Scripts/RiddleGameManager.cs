@@ -1,6 +1,9 @@
 using System.Collections.Generic; // Needed for List
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections;
+
 
 public class RiddleGameManager : MonoBehaviour
 {
@@ -14,11 +17,18 @@ public class RiddleGameManager : MonoBehaviour
     public TextMeshProUGUI screenText; // Reference to the text on the screen
     public GameObject player; // Reference to the player object
     public List<Riddle> riddles = new List<Riddle>(); // Editable list of riddles in the Inspector
+    private AudioSource correct;
+    private AudioSource wrong;
+    public string nextSceneName;
 
     private int currentRiddleIndex = 0; // Keeps track of the current riddle
 
     void Start()
     {
+        wrong = gameObject.AddComponent<AudioSource>();
+        correct = gameObject.AddComponent<AudioSource>();
+        correct.clip = Resources.Load<AudioClip>("Correct");
+        wrong.clip = Resources.Load<AudioClip>("wow");
         // Add predefined riddles if none are assigned in the Inspector
         if (riddles.Count == 0)
         {
@@ -79,7 +89,7 @@ public class RiddleGameManager : MonoBehaviour
         });
     }
 
-    void ShowNextRiddle()
+    private void ShowNextRiddle()
     {
         if (currentRiddleIndex < riddles.Count)
         {
@@ -88,11 +98,20 @@ public class RiddleGameManager : MonoBehaviour
         }
         else
         {
-            // Game complete, show completion message
             screenText.text = "Congratulations! You’ve solved all the riddles!";
+
+            correct.Play();
+            StartCoroutine(endGame());
+
         }
     }
+    private IEnumerator endGame()
+    {
+            yield return new WaitWhile(() => correct.isPlaying);
+            nextSceneName = "Elevator 1";
+            SceneManager.LoadScene(nextSceneName);
 
+    }
     public void CheckPlayerAnswer(int gridIndex)
     {
         if (currentRiddleIndex >= riddles.Count) return;
@@ -100,6 +119,7 @@ public class RiddleGameManager : MonoBehaviour
         if (gridIndex == riddles[currentRiddleIndex].correctGridIndex)
         {
             Debug.Log("Correct Answer!");
+            wrong.Play();
             currentRiddleIndex++; // Move to the next riddle
             ShowNextRiddle(); // Update the screen with the next riddle
         }

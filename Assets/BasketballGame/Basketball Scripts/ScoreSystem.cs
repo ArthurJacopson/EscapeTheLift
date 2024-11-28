@@ -1,39 +1,51 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ScoreSystem : MonoBehaviour {
-    public TextMeshProUGUI scoreText; 
-    public TextMeshProUGUI resultText; 
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI resultText;
 
-    private int attempts = 0; 
+    private int attempts = 0;
     private int score = 0;
-    private int maxAttempts = 5; 
-    private int requiredScore = 3; 
-    private int failedAttempts = 0; 
+    private int maxAttempts = 5;
+    private int requiredScore = 3;
+    private int failedAttempts = 0;
+    private AudioSource correct;
+    private AudioSource wrong;
+    public string nextSceneName;
+    private bool gameEnded = false;
+    private AudioSource wow;
 
-    private bool gameEnded = false; 
     void Start() {
-        UpdateScoreText(); 
+        wow = gameObject.AddComponent<AudioSource>();
+        wrong = gameObject.AddComponent<AudioSource>();
+        correct = gameObject.AddComponent<AudioSource>();
+        correct.clip = Resources.Load<AudioClip>("Correct");
+        wow.clip = Resources.Load<AudioClip>("wow");
+        wrong.clip = Resources.Load<AudioClip>("Wrong_5");
+        UpdateScoreText();
         if (resultText != null) {
-            resultText.text = ""; 
+            resultText.text = "";
         }
     }
 
-    
     public void AddAttempt() {
-        if (gameEnded) return; 
+        if (gameEnded) return;
 
         attempts++;
-        failedAttempts++; 
+        failedAttempts++;
         UpdateScoreText();
         CheckGameStatus();
     }
 
     public void AddScore() {
-        if (gameEnded) return; 
+        if (gameEnded) return;
 
         score++;
-        failedAttempts = 0; 
+        wow.Play();
+        failedAttempts = 0;
         UpdateScoreText();
         CheckGameStatus();
     }
@@ -45,31 +57,38 @@ public class ScoreSystem : MonoBehaviour {
     }
 
     private void CheckGameStatus() {
+        // Check if the score meets the requirement for a win
         if (score >= requiredScore) {
             EndGame("Congratulations! You passed the game.");
-            return;
+            nextSceneName = "elevator4";
+            correct.Play();
+            StartCoroutine(Waiter());
+
         }
 
-        
+        // Check for 3 failed attempts in a row
         if (failedAttempts >= 3) {
             EndGame("Game Over. You failed 3 times in a row.");
-            return;
+            nextSceneName = "elevator3";
+            wrong.Play();
+            StartCoroutine(Waiter());
         }
 
-        if (attempts >= maxAttempts) {
-            if (score >= requiredScore) {
-                EndGame("Congratulations! You passed the game.");
-            } else {
-                EndGame("Game Over. Try Again!");
-            }
-        }
+        // Check if the max attempts have been reached
+        
+    }
+    private IEnumerator Waiter()
+    {
+
+    yield return new WaitWhile(() => correct.isPlaying);
+    SceneManager.LoadScene(nextSceneName);
     }
 
     private void EndGame(string message) {
-        gameEnded = true; 
+        gameEnded = true;
         if (resultText != null) {
-            resultText.text = message; 
+            resultText.text = message;
         }
-        Debug.Log(message); 
+        Debug.Log(message);
     }
 }
